@@ -7,7 +7,7 @@
 
 Paid social teams can watch a dashboard full of green metrics — solid CTR, decent spend efficiency — and still not know why revenue isn't moving. Clicks don't always mean customers, and a "good-looking" creative can quietly be burning budget the whole time.
 
-This project puts me in the seat of a **Performance Marketing Data Analyst** for a fast-growing feminine wellness brand running paid campaigns across **Meta** and **TikTok**, as part of the **Data Analyst Playbook (Cohort 2)** challenge assignment. The brand was seeing a familiar but frustrating pattern: some campaigns generated clicks but no sales, some ads looked engaging but never scaled, and performance swung wildly from creative to creative with no clear explanation.
+This project puts me in the seat of a **Performance Marketing Data Analyst** for a fast-growing feminine wellness brand running paid campaigns across **Meta** and **TikTok**, as part of the **Data Analyst Playbook (Cohort 2)** challenge. The brand was seeing a familiar but frustrating pattern: some campaigns generated clicks but no sales, some ads looked engaging but never scaled, and performance swung wildly from creative to creative with no clear explanation.
 
 > **The goal:** turn 90,000 rows of creative-level ad data into a dashboard that tells the brand which platform actually performs better, which creative attributes drive real conversions (not just clicks), where users are dropping out of the funnel, and which creatives are fatigued versus ready to scale.
 
@@ -39,16 +39,16 @@ PerformanceMarketing_Analytics/
 │
 ├── assets/
 │   ├── dashboard_overview.png
-│   ├── creative_performance.png
-│   ├── funnel_diagnostics.png
-│   └── attention_engagement.png
+│   ├── pg_2.png
+│   ├── pg_3.png
+│   └── pg_4.png
 │
 ├── data/
 │   └── marketing_dataset.csv
-│
-├── README.md
 |
-└── Performance Marketing Analytics.pbix
+├── Performance Marketing Analytics.pbix
+|
+└── README.md
 ```
 
 ---
@@ -80,22 +80,10 @@ Phase 5 → Insights & Recommendations
 
 ---
 
-## 🧭 Page 1 — Funnel Breakdown: Which Platform Is Really Winning?
-**Question:** *Which platform is truly performing better — not just on CTR, but across deeper metrics?*
-
-![Funnel Breakdown](<assets/dashboard_overview.png>)
-
-- Meta generates **2.4x more volume** at every funnel stage than TikTok, but the platforms are near-identical on efficiency: TikTok's CTR (10.01%) edges out Meta's (9.93%), while Meta's CVR (9.91%) edges out TikTok's (9.78%).
-- End-to-end, the funnel is healthy: **9.96% impression→click** and **9.87% click→purchase**. Neither top-of-funnel nor post-click conversion is the bottleneck.
-- By creative angle, **Social Proof (0.9881%)** and **Pain Point (0.9847%)** convert impressions to purchases most efficiently; **Transformation (0.9734%)** is the weakest — it drives broad awareness but lower-intent traffic.
-- **Education** is the volume trap: it pulls in 570M impressions (25% of total spend) but posts the *lowest* imp-to-purchase rate of any angle — attracting browsers, not buyers.
-
-**Insight:** Scaling spend on Meta increases volume but doesn't improve efficiency — growth has to come from creative and angle optimization, not a platform shift. A flat 36-month ROAS (3.19x–3.31x) with no Q4 seasonal peak also shows the brand is leaving seasonal budget efficiency on the table.
-
----
-
-## 🎯 Page 2 — What Is Really Driving Performance?
+## 🎯 Page 1 — What Is Really Driving Performance?
 **Question:** *Which creative attributes are consistently linked to high CTR, CVR, and ROAS — and what combination wins?*
+
+![Performance](<assets/dashboard_overview.png>)
 
 - **Emotional** hooks lead on CVR (5.26%) and **Authority** hooks lead on hook rate (35.14%) — but the gaps between hook types are narrow. Hook type alone isn't the lever; it's the *combination* of hook + angle + tone that moves the needle.
 - **Pain Point** and **Education** angles lead on ROAS (3.27x and 3.26x). **Social Proof** has the highest CVR (5.27%) but the *worst* ROAS (3.22x) — it converts, but at a cost that erodes return, likely due to pricier social-proof production formats.
@@ -115,7 +103,7 @@ Phase 5 → Insights & Recommendations
 
 ---
 
-## 🕵️ Page 3 — Find the Lies in the Data
+## 🕵️ Page 2 — Find the Lies in the Data
 **Question:** *Which campaigns or creatives appear successful but are actually failing?*
 
 - **211 creatives** flagged as CTR traps and **195** as CPC traps — ads that look like they're winning on the surface-level metric but aren't converting efficiently.
@@ -126,7 +114,7 @@ Phase 5 → Insights & Recommendations
 
 ---
 
-## 👀 Page 4 — Attention vs Engagement vs Conversion
+## 👀 Page 3 — Attention vs Engagement vs Conversion
 **Question:** *Where in the funnel are users being lost — before the click, during the video, or after the click?*
 
 **Attention funnel (per 1,000 impressions):**
@@ -148,9 +136,21 @@ Phase 5 → Insights & Recommendations
 
 ---
 
+## 🧭 Page 4 — Funnel Breakdown: Which Platform Is Really Winning?
+**Question:** *Which platform is truly performing better — not just on CTR, but across deeper metrics?*
+
+- Meta generates **2.4x more volume** at every funnel stage than TikTok, but the platforms are near-identical on efficiency: TikTok's CTR (10.01%) edges out Meta's (9.93%), while Meta's CVR (9.91%) edges out TikTok's (9.78%).
+- End-to-end, the funnel is healthy: **9.96% impression→click** and **9.87% click→purchase**. Neither top-of-funnel nor post-click conversion is the bottleneck.
+- By creative angle, **Social Proof (0.9881%)** and **Pain Point (0.9847%)** convert impressions to purchases most efficiently; **Transformation (0.9734%)** is the weakest — it drives broad awareness but lower-intent traffic.
+- **Education** is the volume trap: it pulls in 570M impressions (25% of total spend) but posts the *lowest* imp-to-purchase rate of any angle — attracting browsers, not buyers.
+
+**Insight:** Scaling spend on Meta increases volume but doesn't improve efficiency — growth has to come from creative and angle optimization, not a platform shift. A flat 36-month ROAS (3.19x–3.31x) with no Q4 seasonal peak also shows the brand is leaving seasonal budget efficiency on the table.
+
+---
+
 ## 🧱 Data Modeling
 
-Unlike the relational rail dataset, this marketing data arrived as a **single pre-joined creative-level table** — no star schema was required. Modeling effort went into validating and organizing the flat table so it could support multi-dimensional slicing across platform, creative attributes, hook categories, and fatigue stages.
+This marketing data arrived as a **single pre-joined creative-level table**, no star schema was required. Modeling effort went into validating and organizing the flat table so it could support multi-dimensional slicing across platform, creative attributes, hook categories, and fatigue stages.
 
 **Schema Structure**
 - **Primary Table:** `marketing_dataset` — 90,000 rows, 46 columns spanning creative, platform, and performance dimensions
